@@ -20,6 +20,7 @@ class Hangman extends Component {
     super(props);
     this.state = { nWrong: 0, guessed: new Set(), answer: randomWord() };
     this.handleGuess = this.handleGuess.bind(this);
+    this.generateButtons = this.generateButtons.bind(this);
   }
 
   /** guessedWord: show current-state of word:
@@ -44,12 +45,20 @@ class Hangman extends Component {
   }
   gameOver() {
     // if(this.props.maxWrong) {
+      console.log(this.state.answer);
       return (
-        <span>GAME OVER!</span>
+        <div>
+        <h1>GAME OVER!</h1>
+        <p>The word to guess was: {this.state.answer}</p>
+        <button className="Hangman-start-button" onClick={this.generateButtons}>Start over</button>
+        </div>
       )
     // }
   }
 
+  reestart() {
+
+  }
   /** generateButtons: return array of letter buttons to render */
   generateButtons() {
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
@@ -71,7 +80,7 @@ class Hangman extends Component {
     return (
       <div className='Hangman'>
         <h1>Hangman</h1>
-        <img src={this.props.images[this.state.nWrong]} alt={this.state.nWrong}/>
+        <img src={this.props.images[this.state.nWrong]} alt={`${this.state.nWrong} wrong guesses`}/>
         <p>Number of wrong: {this.state.nWrong >= this.props.maxWrong ? 'Game Over' : this.state.nWrong}</p>
         <p className='Hangman-word'>{this.guessedWord()}</p>
         <p className='Hangman-btns'>{this.props.maxWrong === this.state.nWrong ? this.gameOver() : this.generateButtons()}</p>
