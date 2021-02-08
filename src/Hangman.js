@@ -20,7 +20,7 @@ class Hangman extends Component {
     super(props);
     this.state = { nWrong: 0, guessed: new Set(), answer: randomWord() };
     this.handleGuess = this.handleGuess.bind(this);
-    this.generateButtons = this.generateButtons.bind(this);
+    this.startGame = this.startGame.bind(this);
   }
 
   /** guessedWord: show current-state of word:
@@ -50,14 +50,20 @@ class Hangman extends Component {
         <div>
         <h1>GAME OVER!</h1>
         <p>The word to guess was: {this.state.answer}</p>
-        <button className="Hangman-start-button" onClick={this.generateButtons}>Start over</button>
+        <button className="Hangman-start-button" onClick={this.startGame}>Start over</button>
         </div>
       )
     // }
   }
 
-  reestart() {
-
+  startGame() {
+    this.generateButtons();
+    this.setState({
+      nWrong: 0,
+      guessed: new Set(),
+      answer: randomWord()
+    })
+    // this.handleGuess();
   }
   /** generateButtons: return array of letter buttons to render */
   generateButtons() {
